@@ -149,7 +149,7 @@ PUT    /api/animals/assignments/:id  // Update assignment
 DELETE /api/animals/assignments/:id // End assignment
 ```
 
-### Milk Production
+### Milk Production 
 ```
 GET    /api/milk                 // Get all milk records
 POST   /api/milk                 // Record milk production

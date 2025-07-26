@@ -1,0 +1,28 @@
+{
+    "name": "dairy-farm-frontend",
+    "version": "1.0.0",
+    "description": "Frontend for Dairy Farm Management System",
+    "main": "index.html",
+    "scripts": {
+        "start": "npx serve .",
+        "dev": "npx live-server .",
+        "format": "npx prettier --write .",
+        "lint": "npx eslint ."
+    },
+    "keywords": [
+        "dairy",
+        "farm",
+        "management",
+        "frontend",
+        "html",
+        "javascript"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+        "prettier": "^3.0.0",
+        "eslint": "^8.0.0",
+        "live-server": "^1.2.2",
+        "serve": "^14.0.0"
+    }
+}
