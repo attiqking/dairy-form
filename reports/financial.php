@@ -30,10 +30,9 @@ if ($report_type === 'profit_loss') {
               GROUP BY day
               ORDER BY day";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
+    $stmt->execute([$start_date, $end_date]);
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $income[$row['day']] = $row['total'];
     }
     
@@ -43,10 +42,9 @@ if ($report_type === 'profit_loss') {
               GROUP BY day
               ORDER BY day";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
+    $stmt->execute([$start_date, $end_date]);
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $expenses[$row['day']] = $row['total'];
     }
     
@@ -72,10 +70,9 @@ if ($report_type === 'profit_loss') {
               GROUP BY category
               ORDER BY total DESC";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
+    $stmt->execute([$start_date, $end_date]);
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $expenses[] = [
             'category' => $row['category'],
             'amount' => $row['total']
@@ -89,10 +86,9 @@ if ($report_type === 'profit_loss') {
               GROUP BY payment_type
               ORDER BY total DESC";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
+    $stmt->execute([$start_date, $end_date]);
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $income[] = [
             'type' => $row['payment_type'],
             'amount' => $row['total']

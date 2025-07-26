@@ -18,8 +18,7 @@ if (!isset($_GET['id'])) {
 
 $id = (int)$_GET['id'];
 $stmt = $conn->prepare("SELECT id, username, full_name, role FROM users WHERE id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
+$stmt->execute([$id]);
 $result = $stmt->get_result();
 
 if ($result->num_rows !== 1) {
@@ -27,7 +26,7 @@ if ($result->num_rows !== 1) {
     exit();
 }
 
-$user = $result->fetch_assoc();
+$user = $result->fetch(PDO::FETCH_ASSOC);
 $user['password'] = '';
 
 $errors = [];

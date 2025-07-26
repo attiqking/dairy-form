@@ -17,8 +17,7 @@ if (isset($_GET['delete'])) {
     // Don't allow deleting yourself
     if ($id != $_SESSION['user_id']) {
         $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $stmt->execute([$id]);
     }
     header("Location: " . BASE_URL . "/admin/users.php");
     exit();
@@ -28,7 +27,7 @@ if (isset($_GET['delete'])) {
 $users = [];
 $query = "SELECT id, username, full_name, role, created_at FROM users ORDER BY created_at DESC";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $users[] = $row;
 }
 ?>

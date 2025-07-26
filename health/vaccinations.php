@@ -38,7 +38,7 @@ $stmt->bind_param($types, ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
 $production_data = [];
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $production_data[] = $row;
 }
 
@@ -46,7 +46,7 @@ while ($row = $result->fetch_assoc()) {
 $animals = [];
 $query = "SELECT id, tag_number, breed FROM animals ORDER BY tag_number";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $animals[] = $row;
 }
 

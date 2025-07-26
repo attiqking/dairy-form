@@ -27,12 +27,11 @@ $title = "Add Payment";
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $stmt = $conn->prepare("SELECT * FROM payments WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     $result = $stmt->get_result();
     
     if ($result->num_rows === 1) {
-        $payment = $result->fetch_assoc();
+        $payment = $result->fetch(PDO::FETCH_ASSOC);
         $isEdit = true;
         $title = "Edit Payment";
     }

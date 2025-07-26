@@ -31,11 +31,10 @@ $query .= " FROM milk_production
            ORDER BY period";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param("ss", $start_date, $end_date);
-$stmt->execute();
+$stmt->execute([$start_date, $end_date]);
 $result = $stmt->get_result();
 $production_data = [];
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $production_data[] = $row;
 }
 
@@ -48,10 +47,9 @@ $query = "SELECT a.id, a.tag_number, SUM(m.quantity) as total
           GROUP BY a.id
           ORDER BY total DESC";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("ss", $start_date, $end_date);
-$stmt->execute();
+$stmt->execute([$start_date, $end_date]);
 $result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $animals[] = $row;
 }
 

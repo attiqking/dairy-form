@@ -15,8 +15,7 @@ $conn = $database->getConnection();
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $stmt = $conn->prepare("DELETE FROM health_records WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     header("Location: " . BASE_URL . "/health/");
     exit();
 }
@@ -28,7 +27,7 @@ $query = "SELECT h.id, h.record_type, h.date, h.description, h.treatment, h.next
           JOIN animals a ON h.animal_id = a.id 
           ORDER BY h.date DESC";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $records[] = $row;
 }
 ?>

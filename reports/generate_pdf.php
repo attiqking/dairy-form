@@ -60,11 +60,10 @@ if ($type === 'production') {
                ORDER BY period";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
+    $stmt->execute([$start_date, $end_date]);
     $result = $stmt->get_result();
     $production_data = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $production_data[] = $row;
     }
 
@@ -78,10 +77,9 @@ if ($type === 'production') {
               ORDER BY total DESC
               LIMIT 10";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
+    $stmt->execute([$start_date, $end_date]);
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $animals[] = $row;
     }
 
@@ -146,10 +144,9 @@ if ($type === 'production') {
                   GROUP BY day
                   ORDER BY day";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $start_date, $end_date);
-        $stmt->execute();
+        $stmt->execute([$start_date, $end_date]);
         $result = $stmt->get_result();
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $income[$row['day']] = $row['total'];
         }
         
@@ -159,10 +156,9 @@ if ($type === 'production') {
                   GROUP BY day
                   ORDER BY day";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $start_date, $end_date);
-        $stmt->execute();
+        $stmt->execute([$start_date, $end_date]);
         $result = $stmt->get_result();
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $expenses[$row['day']] = $row['total'];
         }
         
@@ -225,10 +221,9 @@ if ($type === 'production') {
                   GROUP BY category
                   ORDER BY total DESC";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $start_date, $end_date);
-        $stmt->execute();
+        $stmt->execute([$start_date, $end_date]);
         $result = $stmt->get_result();
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $expenses[] = [
                 'category' => $row['category'],
                 'amount' => $row['total']
@@ -280,7 +275,7 @@ if ($type === 'production') {
     $stmt->execute();
     $result = $stmt->get_result();
     $inventory_items = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $inventory_items[] = $row;
     }
     

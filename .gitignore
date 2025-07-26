@@ -1,0 +1,115 @@
+# Composer
+/vendor/
+composer.phar
+composer.lock
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PHP
+*.log
+php_errors.log
+error_log
+.php_cs.cache
+.phpunit.result.cache
+
+# Environment and Config
+.env
+.env.local
+.env.*.local
+config.local.php
+database.local.php
+
+# Cache and temporary files
+/cache/
+/tmp/
+/temp/
+*.tmp
+*.cache
+
+# Upload directories
+/uploads/
+/files/
+/media/
+/images/uploads/
+
+# Backup files
+*.backup
+*.bak
+*.sql.backup
+*.sql.bak
+backup/
+backups/
+
+# Development tools
+/.php-cs-fixer.cache
+/phpstan.neon.dist
+/.phpstan.cache
+/coverage/
+/.nyc_output
+
+# Node.js (if using frontend build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Build artifacts
+/build/
+/dist/
+/public/build/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Documentation build
+/docs/_build/
+
+# Test coverage
+coverage.xml
+*.coverage
+
+# Deployment
+.ftpconfig
+.deployignore
+
+# Specific to this project
+/DairyFarm/
+check_database_syntax.php
+fix_database_syntax.php
+DATABASE_SYNTAX_FIX_SUMMARY.md
+DEVELOPMENT_SETUP.md
+
+# Temporary migration files
+migration_*.sql
+setup_sample_*.php
+test_*.php
+check_*.php
+fix_*.php

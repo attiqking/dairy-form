@@ -27,12 +27,11 @@ $title = "Add New Animal";
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $stmt = $conn->prepare("SELECT * FROM animals WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     $result = $stmt->get_result();
     
     if ($result->num_rows === 1) {
-        $animal = $result->fetch_assoc();
+        $animal = $result->fetch(PDO::FETCH_ASSOC);
         $isEdit = true;
         $title = "Edit Animal";
     }

@@ -21,12 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Verify token
         $stmt = $conn->prepare("SELECT email FROM password_resets WHERE token = ? AND expires_at > NOW()");
-        $stmt->bind_param("s", $token);
-        $stmt->execute();
+        $stmt->execute([$token]);
         $result = $stmt->get_result();
         
         if ($result->num_rows === 1) {
-            $row = $result->fetch_assoc();
+            $row = $result->fetch(PDO::FETCH_ASSOC);
             $email = $row['email'];
             
             // Update password

@@ -18,8 +18,7 @@ if (!isset($_GET['id'])) {
 
 $id = (int)$_GET['id'];
 $stmt = $conn->prepare("SELECT * FROM animals WHERE id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
+$stmt->execute([$id]);
 $result = $stmt->get_result();
 
 if ($result->num_rows !== 1) {
@@ -27,25 +26,23 @@ if ($result->num_rows !== 1) {
     exit();
 }
 
-$animal = $result->fetch_assoc();
+$animal = $result->fetch(PDO::FETCH_ASSOC);
 
 // Get health records
 $healthRecords = [];
 $stmt = $conn->prepare("SELECT * FROM health_records WHERE animal_id = ? ORDER BY date DESC LIMIT 5");
-$stmt->bind_param("i", $id);
-$stmt->execute();
+$stmt->execute([$id]);
 $result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $healthRecords[] = $row;
 }
 
 // Get milk production
 $milkProduction = [];
 $stmt = $conn->prepare("SELECT date, session, quantity FROM milk_production WHERE animal_id = ? ORDER BY date DESC, session DESC LIMIT 10");
-$stmt->bind_param("i", $id);
-$stmt->execute();
+$stmt->execute([$id]);
 $result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $milkProduction[] = $row;
 }
 ?>

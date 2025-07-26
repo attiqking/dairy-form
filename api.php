@@ -35,7 +35,7 @@ switch ($endpoint) {
                       ORDER BY date";
             $result = $conn->query($query);
             $data = [];
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $data[] = $row;
             }
             echo json_encode($data);
@@ -51,7 +51,7 @@ switch ($endpoint) {
                       GROUP BY category";
             $result = $conn->query($query);
             $data = [];
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $data[] = $row;
             }
             echo json_encode($data);

@@ -21,12 +21,11 @@ $title = "Add Milk Production Record";
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $stmt = $conn->prepare("SELECT * FROM milk_production WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     $result = $stmt->get_result();
     
     if ($result->num_rows === 1) {
-        $record = $result->fetch_assoc();
+        $record = $result->fetch(PDO::FETCH_ASSOC);
         $isEdit = true;
         $title = "Edit Milk Production Record";
     }
@@ -96,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $animals = [];
 $query = "SELECT id, tag_number, breed FROM animals ORDER BY tag_number";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $animals[] = $row;
 }
 

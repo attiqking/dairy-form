@@ -6,7 +6,7 @@ $query = "SELECT m.id, m.date, m.session, m.quantity, m.notes, a.tag_number, a.b
           JOIN animals a ON m.animal_id = a.id 
           ORDER BY m.date DESC, m.session DESC";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $records[] = $row;
 }
 
@@ -29,8 +29,7 @@ $conn = $database->getConnection();
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $stmt = $conn->prepare("DELETE FROM milk_production WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     header("Location: " . BASE_URL . "/milk/");
     exit();
 }
@@ -42,7 +41,7 @@ $query = "SELECT m.id, m.date, m.session, m.quantity, m.notes, a.tag_number, a.b
           JOIN animals a ON m.animal_id = a.id 
           ORDER BY m.date DESC, m.session DESC";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $records[] = $row;
 }
 ?>

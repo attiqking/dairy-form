@@ -15,7 +15,7 @@ $conn = $database->getConnection();
 $settings = [];
 $query = "SELECT * FROM settings";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $settings[$row['setting_key']] = $row['setting_value'];
 }
 
@@ -53,8 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
             
             foreach ($settings_to_update as $key => $value) {
-                $stmt->bind_param("ss", $key, $value);
-                $stmt->execute();
+                $stmt->execute([$key, $value]);
             }
             
             $conn->commit();

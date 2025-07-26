@@ -12,11 +12,10 @@ if (!$auth->isLoggedIn()) {
 $conn = $database->getConnection();
 
 // Handle animal deletion
-if (isset($_GET['delete']) {
+if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $stmt = $conn->prepare("DELETE FROM animals WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     header("Location: " . BASE_URL . "/animals/");
     exit();
 }
@@ -24,10 +23,9 @@ if (isset($_GET['delete']) {
 // Fetch all animals
 $animals = [];
 $query = "SELECT * FROM animals ORDER BY created_at DESC";
-$result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
-    $animals[] = $row;
-}
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="container-fluid">

@@ -17,11 +17,10 @@ $user = [];
 
 // Get user info
 $stmt = $conn->prepare("SELECT username, full_name, role, created_at FROM users WHERE id = ?");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
+$stmt->execute([$user_id]);
 $result = $stmt->get_result();
 if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
+    $user = $result->fetch(PDO::FETCH_ASSOC);
 }
 
 $errors = [];
@@ -35,10 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     
     // Verify current password
     $stmt = $conn->prepare("SELECT password_hash FROM users WHERE id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
+    $stmt->execute([$user_id]);
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    $row = $result->fetch(PDO::FETCH_ASSOC);
     
     if (!password_verify($current_password, $row['password_hash'])) {
         $errors['current_password'] = 'Current password is incorrect';

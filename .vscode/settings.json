@@ -1,3 +1,21 @@
 {
-    "Codegeex.GenerationPreference": "automatic"
+    "Codegeex.GenerationPreference": "automatic",
+    "php.validate.enable": true,
+    "php.validate.executablePath": "php",
+    "php.suggest.basic": false,
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "*.php": "php"
+    },
+    "emmet.includeLanguages": {
+        "php": "html"
+    },
+    "php.executablePath": "php",
+    "intelephense.files.maxSize": 5000000,
+    "intelephense.completion.insertUseDeclaration": true,
+    "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": false,
+    "php-cs-fixer.executablePath": "./vendor/bin/php-cs-fixer",
+    "php-cs-fixer.onsave": true,
+    "phpstan.enabled": true,
+    "phpstan.path": "./vendor/bin/phpstan"
 }

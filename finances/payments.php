@@ -15,8 +15,7 @@ $conn = $database->getConnection();
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $stmt = $conn->prepare("DELETE FROM payments WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+    $stmt->execute([$id]);
     header("Location: " . BASE_URL . "/finances/payments.php");
     exit();
 }
@@ -25,7 +24,7 @@ if (isset($_GET['delete'])) {
 $payments = [];
 $query = "SELECT * FROM payments ORDER BY date DESC";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $payments[] = $row;
 }
 
@@ -39,7 +38,7 @@ $query = "SELECT
           FROM payments
           GROUP BY payment_type";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $summary[] = $row;
 }
 

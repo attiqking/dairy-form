@@ -25,7 +25,7 @@ $query = "SELECT DISTINCT YEAR(date) as year FROM (
           ) as dates 
           ORDER BY year DESC";
 $result = $conn->query($query);
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $years[] = $row['year'];
 }
 
@@ -78,11 +78,10 @@ if ($report_type === 'profit_loss') {
               GROUP BY category
               ORDER BY total DESC";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $year);
-    $stmt->execute();
+    $stmt->execute([$year]);
     $result = $stmt->get_result();
     
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $report_data[] = [
             'category' => $row['category'],
             'amount' => $row['total']
